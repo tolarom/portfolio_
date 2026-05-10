@@ -1,26 +1,279 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #071127; /* slightly darker for higher contrast in light mode */
+  --surface: rgba(255, 255, 255, 0.82);
+  --surface-strong: #ffffff;
+  --surface-muted: #f4f4f5;
+  --border-subtle: #e4e4e7;
+  --theme-toggle-bg: #0f172a;
+  --theme-toggle-fg: #f8fafc;
+  --theme-toggle-border: #1e293b;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html.dark {
+  --background: #0f172a !important;
+  --foreground: #f1f5f9 !important;
+  --surface: rgba(9, 9, 11, 0.78);
+  --surface-strong: #18181b;
+  --surface-muted: #27272a;
+  --border-subtle: #52525b;
+  --theme-toggle-bg: #f8fafc;
+  --theme-toggle-fg: #0f172a;
+  --theme-toggle-border: #d4d4d8;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Override main element */
+main {
+  background-color: var(--background) !important;
+  color: var(--foreground) !important;
+}
+
+html.dark main {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+html main {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+/* Text colors */
+h1, h2, h3, h4, h5, h6, p, span, a, li, dd, dt {
+  color: var(--foreground) !important;
+}
+
+/* Light mode specific text colors */
+html h1, html h2, html h3, html h4, html h5, html h6 {
+  color: #0f172a !important;
+}
+
+html p, html span, html a, html li {
+  color: #0f172a !important;
+}
+
+html .text-zinc-600, html .text-zinc-500, html .text-zinc-400, html .text-zinc-900 {
+  color: #52525b !important;
+}
+
+html .text-white {
+  color: #ffffff !important;
+}
+
+/* Dark mode specific text colors */
+html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
+  color: #f1f5f9 !important;
+}
+
+html.dark p, html.dark span, html.dark a, html.dark li {
+  color: #f1f5f9 !important;
+}
+
+html.dark .text-zinc-600, html.dark .text-zinc-500, html.dark .text-zinc-400 {
+  color: #a1a5ab !important;
+}
+
+html.dark .text-zinc-900 {
+  color: #f1f5f9 !important;
+}
+
+html.dark .text-zinc-800, html.dark .text-zinc-700 {
+  color: #e4e4e7 !important;
+}
+
+html.dark .text-white {
+  color: #ffffff !important;
+}
+
+/* Button and link text colors - Light mode */
+html a.inline-flex, html button {
+  color: inherit !important;
+}
+
+html .text-white {
+  color: #ffffff !important;
+}
+
+html .bg-zinc-800 {
+  background-color: #27272a !important;
+  color: #ffffff !important;
+}
+
+html .bg-zinc-700 {
+  background-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+
+/* Button and link text colors - Dark mode */
+html.dark .text-white {
+  color: #ffffff !important;
+}
+
+html.dark .bg-zinc-800 {
+  background-color: #27272a !important;
+  color: #ffffff !important;
+}
+
+html.dark .bg-zinc-700 {
+  background-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+
+html.dark .bg-zinc-50 {
+  background-color: #27272a !important;
+  color: #f1f5f9 !important;
+}
+
+/* Contact section buttons */
+html section a[href*="mailto"] {
+  color: #ffffff !important;
+}
+
+html.dark section a[href*="mailto"] {
+  color: #ffffff !important;
+}
+
+/* Border colors - Light mode */
+html .border-zinc-100 {
+  border-color: var(--border-subtle) !important;
+}
+
+html .border-zinc-200 {
+  border-color: var(--border-subtle) !important;
+}
+
+html .border-zinc-300 {
+  border-color: #d4d4d8 !important;
+}
+
+html .border-zinc-600 {
+  border-color: #52525b !important;
+}
+
+html .border-zinc-700 {
+  border-color: #3f3f46 !important;
+}
+
+html .border-zinc-800 {
+  border-color: #27272a !important;
+}
+
+html .border-zinc-900 {
+  border-color: #18181b !important;
+}
+
+/* Border colors - Dark mode */
+html.dark .border-zinc-100 {
+  border-color: #3f3f46 !important;
+}
+
+html.dark .border-zinc-200 {
+  border-color: #3f3f46 !important;
+}
+
+html.dark .border-zinc-300 {
+  border-color: #52525b !important;
+}
+
+html.dark .border-zinc-600 {
+  border-color: #a1a5ab !important;
+}
+
+html.dark .border-zinc-700 {
+  border-color: #a1a5ab !important;
+}
+
+html.dark .border-zinc-800 {
+  border-color: #e4e4e7 !important;
+}
+
+html.dark .border-zinc-900 {
+  border-color: #f1f5f9 !important;
+}
+
+/* Background colors for cards/sections - Light mode */
+html .bg-zinc-50 {
+  background-color: var(--surface-muted) !important;
+}
+
+html .bg-zinc-100 {
+  background-color: var(--surface-muted) !important;
+}
+
+html .bg-zinc-200 {
+  background-color: #e4e4e7 !important;
+}
+
+html .bg-zinc-800 {
+  background-color: #27272a !important;
+}
+
+/* Background colors for cards/sections - Dark mode */
+html.dark .bg-zinc-50 {
+  background-color: #27272a !important;
+}
+
+html.dark .bg-zinc-100 {
+  background-color: #27272a !important;
+}
+
+html.dark .bg-zinc-200 {
+  background-color: #3f3f46 !important;
+}
+
+html.dark .bg-zinc-800 {
+  background-color: #27272a !important;
+}
+
+html.dark .bg-white {
+  background-color: var(--surface-strong) !important;
+}
+
+/* Button and interactive elements */
+button, a {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Ensure all elements transition smoothly */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Dotted background used by .dot-background element */
+
+.dot-background {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  /* darker dots in light mode for better visibility */
+  background-image: radial-gradient(circle, rgba(0,0,0,0.14) 2px, transparent 2px);
+  background-size: 40px 40px;
+  background-position: center center;
+  background-attachment: fixed;
+  transition: none !important;
+}
+
+html.dark .dot-background {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 2px, transparent 2px);
+  background-size: 40px 40px;
+}
+
+/* Make common light-mode text utility shades slightly darker for readability */
+html .text-zinc-600, html .text-zinc-500, html .text-zinc-400, html .text-zinc-900 {
+  color: #3f4752 !important; /* darker neutral for improved contrast */
 }
