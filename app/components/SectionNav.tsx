@@ -43,19 +43,19 @@ export function SectionNav({ sections }: { sections: SectionLink[] }) {
   return (
     <nav
       aria-label="Section navigation"
-      className="fixed left-1/2 top-5 z-40 w-[min(92vw,48rem)] -translate-x-1/2 rounded-2xl border px-3 py-2 shadow-lg shadow-zinc-900/5 backdrop-blur-xl dark:shadow-black/20 sm:top-6"
+      className="hidden sm:block fixed left-1/2 top-4 z-40 w-[max-content] max-w-[calc(100vw-2rem)] -translate-x-1/2 overflow-x-auto rounded-full border px-2 py-2 shadow-lg shadow-zinc-900/5 backdrop-blur-xl dark:shadow-black/20 sm:top-6 sm:rounded-2xl sm:px-3 hide-scrollbar"
       style={{
         backgroundColor: "var(--surface)",
         borderColor: "var(--border-subtle)",
       }}
     >
-      <div className="flex flex-wrap items-center justify-center gap-1.5">
+      <div className="flex flex-nowrap items-center gap-1.5 sm:flex-wrap sm:justify-center sm:gap-2">
         {sections.map((section) => (
           <a
             key={section.href}
             href={section.href}
             aria-current={activeHref === section.href ? "page" : undefined}
-            className="rounded-full px-2.5 py-1 text-[0.72rem] font-semibold uppercase tracking-[0.16em] transition"
+            className="rounded-full px-2 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.14em] transition sm:px-2.5 sm:text-[0.72rem] sm:tracking-[0.16em]"
             style={{
               color: activeHref === section.href ? "#ffffff" : "inherit",
               backgroundColor:

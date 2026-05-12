@@ -37,7 +37,7 @@ export default function NewsletterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-3">
+    <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4 w-full">
       <div>
         <label htmlFor="newsletter-email" className="sr-only">Email address</label>
         <input
@@ -47,7 +47,7 @@ export default function NewsletterForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email address"
-          className="w-full rounded-md border border-zinc-900/10 bg-white px-3 py-2 text-sm shadow-sm outline-none placeholder:text-zinc-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500"
+          className="w-full rounded-lg border border-zinc-900/10 bg-white px-4 py-3 text-base shadow-sm outline-none placeholder:text-zinc-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-800/[0.4] dark:text-zinc-200 dark:placeholder:text-zinc-500"
         />
       </div>
 
@@ -59,14 +59,14 @@ export default function NewsletterForm() {
           onChange={(e) => setMessageText(e.target.value)}
           placeholder="Optional message — how did you hear about me?"
           rows={3}
-          className="w-full rounded-md border border-zinc-900/10 bg-white px-3 py-2 text-sm shadow-sm outline-none placeholder:text-zinc-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500"
+          className="w-full rounded-lg border border-zinc-900/10 bg-white px-4 py-3 text-base shadow-sm outline-none placeholder:text-zinc-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-800/[0.4] dark:text-zinc-200 dark:placeholder:text-zinc-500"
         />
       </div>
 
       <button
         type="submit"
         disabled={status === "loading"}
-        className="inline-flex w-full items-center justify-center rounded-md bg-zinc-800 px-4 py-2 text-sm font-semibold text-zinc-100 transition hover:bg-zinc-700 dark:bg-zinc-700 dark:hover:bg-zinc-600 disabled:opacity-60"
+        className="inline-flex w-full items-center justify-center rounded-lg bg-zinc-800 px-4 py-3 text-base font-semibold text-zinc-100 transition hover:bg-zinc-700 dark:bg-zinc-700 dark:hover:bg-zinc-600 disabled:opacity-60"
       >
         {status === "loading" ? "Joining…" : "Join"}
       </button>

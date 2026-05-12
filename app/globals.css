@@ -5,27 +5,31 @@ html {
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #071127; /* slightly darker for higher contrast in light mode */
-  --surface: rgba(255, 255, 255, 0.82);
+  /* The off-white rule */
+  --background: #f5f4f0;
+  /* Primary text hierarchy */
+  --foreground: #1a1a1a; 
+  --surface: rgba(245, 244, 240, 0.82);
   --surface-strong: #ffffff;
-  --surface-muted: #f4f4f5;
-  --border-subtle: #e4e4e7;
-  --theme-toggle-bg: #0f172a;
-  --theme-toggle-fg: #f8fafc;
-  --theme-toggle-border: #1e293b;
+  --surface-muted: #e6e5e0;
+  --border-subtle: #d6d5d0;
+  --theme-toggle-bg: #1a1a1a;
+  --theme-toggle-fg: #f5f4f0;
+  --theme-toggle-border: #333333;
 }
 
 html.dark {
-  --background: #0f172a !important;
-  --foreground: #f1f5f9 !important;
-  --surface: rgba(9, 9, 11, 0.78);
-  --surface-strong: #18181b;
-  --surface-muted: #27272a;
-  --border-subtle: #52525b;
-  --theme-toggle-bg: #f8fafc;
-  --theme-toggle-fg: #0f172a;
-  --theme-toggle-border: #d4d4d8;
+  /* The off-black rule */
+  --background: #1a1a1a !important;
+  /* Primary text hierarchy */
+  --foreground: #f5f4f0 !important;
+  --surface: rgba(26, 26, 26, 0.78);
+  --surface-strong: #262626;
+  --surface-muted: #333333;
+  --border-subtle: #4d4d4d;
+  --theme-toggle-bg: #f5f4f0;
+  --theme-toggle-fg: #1a1a1a;
+  --theme-toggle-border: #cccccc;
 }
 
 body {
@@ -40,100 +44,114 @@ main {
   color: var(--foreground) !important;
 }
 
-html.dark main {
-  background-color: #0f172a !important;
-  color: #f1f5f9 !important;
-}
-
+/* The off-white / off-black rule applied to solid backgrounds */
 html main {
-  background-color: #ffffff !important;
-  color: #0f172a !important;
+  background-color: #f5f4f0 !important;
+  color: #1a1a1a !important;
 }
 
-/* Text colors */
-h1, h2, h3, h4, h5, h6, p, span, a, li, dd, dt {
+html.dark main {
+  background-color: #1a1a1a !important;
+  color: #f5f4f0 !important;
+}
+
+html .bg-white {
+  background-color: #ffffff !important;
+}
+
+html.dark .bg-black {
+  background-color: #1a1a1a !important;
+}
+
+/* --- TEXT HIERARCHY --- */
+/* Primary text targets (WCAG AAA >= 7:1) */
+h1, h2, h3, h4, h5, h6, dt, dd {
   color: var(--foreground) !important;
 }
 
-/* Light mode specific text colors */
+/* Light mode text colors */
 html h1, html h2, html h3, html h4, html h5, html h6 {
-  color: #0f172a !important;
+  color: #1a1a1a !important;
 }
 
 html p, html span, html a, html li {
-  color: #0f172a !important;
+  color: #1a1a1a !important;
 }
 
-html .text-zinc-600, html .text-zinc-500, html .text-zinc-400, html .text-zinc-900 {
-  color: #52525b !important;
+/* Secondary text targets (WCAG AA >= 4.5:1) */
+html .text-zinc-600, html .text-zinc-900 {
+  color: #595959 !important; /* ~6.5:1 contrast ratio against #f5f4f0 */
+}
+
+/* Hint text targets (Low contrast < 4.5:1) */
+html .text-zinc-500, html .text-zinc-400 {
+  color: #8c8c8c !important; /* Muted hint text */
 }
 
 html .text-white {
   color: #ffffff !important;
 }
 
-/* Dark mode specific text colors */
+/* Dark mode text colors */
 html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
-  color: #f1f5f9 !important;
+  color: #f5f4f0 !important;
 }
 
 html.dark p, html.dark span, html.dark a, html.dark li {
-  color: #f1f5f9 !important;
+  color: #f5f4f0 !important;
 }
 
-html.dark .text-zinc-600, html.dark .text-zinc-500, html.dark .text-zinc-400 {
-  color: #a1a5ab !important;
+/* Secondary text targets (WCAG AA >= 4.5:1) */
+html.dark .text-zinc-600, html.dark .text-zinc-400 {
+  color: #a6a6a6 !important; /* ~5:1 contrast against #1a1a1a */
+}
+
+/* Hint text targets (Low contrast < 4.5:1) */
+html.dark .text-zinc-500, html.dark .text-zinc-700 {
+  color: #737373 !important; /* Muted hint text */
 }
 
 html.dark .text-zinc-900 {
-  color: #f1f5f9 !important;
+  color: #f5f4f0 !important;
 }
 
-html.dark .text-zinc-800, html.dark .text-zinc-700 {
-  color: #e4e4e7 !important;
+html.dark .text-zinc-800 {
+  color: #e6e5e0 !important;
 }
 
 html.dark .text-white {
   color: #ffffff !important;
 }
 
-/* Button and link text colors - Light mode */
+/* --- HIGHLIGHTS (Inverting Stops) --- */
+/* Pale fill + dark text for light mode | Dark fill + pale text for dark mode */
 html a.inline-flex, html button {
   color: inherit !important;
 }
 
-html .text-white {
-  color: #ffffff !important;
-}
-
-html .bg-zinc-800 {
-  background-color: #27272a !important;
-  color: #ffffff !important;
+html .bg-zinc-800, html .bg-zinc-900 {
+  background-color: #1a1a1a !important;
+  color: #f5f4f0 !important;
 }
 
 html .bg-zinc-700 {
-  background-color: #3f3f46 !important;
+  background-color: #333333 !important;
   color: #ffffff !important;
 }
 
-/* Button and link text colors - Dark mode */
-html.dark .text-white {
-  color: #ffffff !important;
-}
-
-html.dark .bg-zinc-800 {
-  background-color: #27272a !important;
-  color: #ffffff !important;
+html.dark .bg-zinc-800, html.dark .bg-zinc-900 {
+  background-color: #f5f4f0 !important; /* Inverted for highlight contrast */
+  color: #1a1a1a !important;
 }
 
 html.dark .bg-zinc-700 {
-  background-color: #3f3f46 !important;
-  color: #ffffff !important;
+  background-color: #e6e5e0 !important;
+  color: #1a1a1a !important;
 }
 
 html.dark .bg-zinc-50 {
-  background-color: #27272a !important;
-  color: #f1f5f9 !important;
+  background-color: #262626 !important;
+  color: #f5f4f0 !important;
 }
 
 /* Contact section buttons */
@@ -142,7 +160,7 @@ html section a[href*="mailto"] {
 }
 
 html.dark section a[href*="mailto"] {
-  color: #ffffff !important;
+  color: #1a1a1a !important;
 }
 
 /* Border colors - Light mode */
@@ -155,49 +173,54 @@ html .border-zinc-200 {
 }
 
 html .border-zinc-300 {
-  border-color: #d4d4d8 !important;
+  border-color: #cccccc !important;
 }
 
 html .border-zinc-600 {
-  border-color: #52525b !important;
+  border-color: #8c8c8c !important;
 }
 
 html .border-zinc-700 {
-  border-color: #3f3f46 !important;
+  border-color: #595959 !important;
 }
 
 html .border-zinc-800 {
-  border-color: #27272a !important;
+  border-color: #333333 !important;
 }
 
 html .border-zinc-900 {
-  border-color: #18181b !important;
+  border-color: #1a1a1a !important;
 }
 
 /* Border colors - Dark mode */
 html.dark .border-zinc-100 {
-  border-color: #3f3f46 !important;
+  border-color: #333333 !important;
 }
 
 html.dark .border-zinc-200 {
-  border-color: #3f3f46 !important;
+  border-color: #333333 !important;
 }
 
 html.dark .border-zinc-300 {
-  border-color: #52525b !important;
+  border-color: #4d4d4d !important;
 }
 
 html.dark .border-zinc-600 {
-  border-color: #a1a5ab !important;
+  border-color: #a6a6a6 !important;
 }
 
 html.dark .border-zinc-700 {
-  border-color: #a1a5ab !important;
+  border-color: #cccccc !important;
 }
 
 html.dark .border-zinc-800 {
-  border-color: #e4e4e7 !important;
+  border-color: #e6e5e0 !important;
 }
+
+html.dark .border-zinc-900 {
+  border-color: #f1f5f9 !important;
+}
+
 
 html.dark .border-zinc-900 {
   border-color: #f1f5f9 !important;
@@ -277,3 +300,5 @@ html.dark .dot-background {
 html .text-zinc-600, html .text-zinc-500, html .text-zinc-400, html .text-zinc-900 {
   color: #3f4752 !important; /* darker neutral for improved contrast */
 }
+
+

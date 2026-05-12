@@ -19,10 +19,10 @@ export function ThemeToggle() {
       onClick={toggleTheme}
       aria-label="Toggle theme"
       style={buttonStyle}
-      className="fixed right-4 top-4 z-50 inline-flex items-center justify-center rounded-xl border p-3 shadow-sm backdrop-blur transition-colors duration-200 hover:opacity-90 sm:right-8 sm:top-8"
+      className="fixed top-4 right-4 z-[9999] inline-flex items-center justify-center rounded-xl border p-3 shadow-sm backdrop-blur transition-colors duration-200 hover:opacity-90 md:top-8 md:right-8"
     >
       {isLightTheme ? (
-        // Light mode → show moon icon on a dark button with a light icon
+        // Light mode 
         <svg
           style={{ color: 'var(--theme-toggle-fg)' }}
           className="h-5 w-5"
@@ -37,7 +37,7 @@ export function ThemeToggle() {
           <path d="M21 12.79A9 9 0 1 1 11.21 3c.36 0 .71.02 1.06.06A7 7 0 0 0 21 12.79Z" />
         </svg>
       ) : (
-        // Dark mode → show sun icon on a light button with a dark icon
+        // Dark mode 
         <svg
           style={{ color: 'var(--theme-toggle-fg)' }}
           className="h-5 w-5"
