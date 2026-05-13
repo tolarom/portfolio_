@@ -16,7 +16,8 @@ export async function POST(req: Request) {
     await writeSubscribers(list);
 
     return NextResponse.json({ ok: true });
-  } catch {
-    return NextResponse.json({ error: "Server error" }, { status: 500 });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Server error";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

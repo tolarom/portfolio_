@@ -8,11 +8,8 @@ export type Subscriber = {
 };
 
 const configuredSubscribersFile = process.env.SUBSCRIBERS_FILE_PATH?.trim();
-const isServerlessRuntime = Boolean(process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME);
-const defaultSubscribersFile = path.join(process.cwd(), "data", "subscribers.json");
-const serverlessSubscribersFile = path.join(process.env.TMPDIR ?? process.env.TEMP ?? "/tmp", "subscribers.json");
-
-export const subscribersFile = configuredSubscribersFile || (isServerlessRuntime ? serverlessSubscribersFile : defaultSubscribersFile);
+const defaultSubscribersFile = path.join(/* turbopackIgnore: true */ process.cwd(), "data", "subscribers.json");
+export const subscribersFile = configuredSubscribersFile || defaultSubscribersFile;
 
 export async function readSubscribers() {
   try {
@@ -24,6 +21,14 @@ export async function readSubscribers() {
 }
 
 export async function writeSubscribers(subscribers: Subscriber[]) {
-  await fs.mkdir(path.dirname(subscribersFile), { recursive: true });
-  await fs.writeFile(subscribersFile, JSON.stringify(subscribers, null, 2), "utf8");
+  try {
+    await fs.mkdir(path.dirname(subscribersFile), { recursive: true });
+    await fs.writeFile(subscribersFile, JSON.stringify(subscribers, null, 2), "utf8");
+  } catch (error) {
+    const code = typeof error === "object" && error && "code" in error ? (error.code as string | undefined) : undefined;
+    if (code === "EROFS" || code === "EPERM" || code === "EACCES") {
+      throw new Error("Subscriber storage is not writable in this deployment. Set SUBSCRIBERS_FILE_PATH to a persistent writable path.");
+    }
+    throw error;
+  }
 }
