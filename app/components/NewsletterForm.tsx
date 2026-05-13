@@ -66,7 +66,7 @@ export default function NewsletterForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="inline-flex w-full items-center justify-center rounded-lg bg-zinc-800 px-4 py-3 text-base font-semibold text-zinc-100 transition hover:bg-zinc-700 dark:bg-zinc-700 dark:hover:bg-zinc-600 disabled:opacity-60"
+        className="newsletter-join-button inline-flex w-full items-center justify-center rounded-lg px-4 py-3 text-base font-semibold transition disabled:opacity-60"
       >
         {status === "loading" ? "Joining…" : "Join"}
       </button>

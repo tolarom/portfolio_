@@ -269,6 +269,25 @@ button, a {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
+/* Newsletter Join button: keep a clear accent color in both themes */
+html .newsletter-join-button {
+  background-color: #0f766e !important;
+  color: #ffffff !important;
+}
+
+html .newsletter-join-button:hover {
+  background-color: #115e59 !important;
+}
+
+html.dark .newsletter-join-button {
+  background-color: #2dd4bf !important;
+  color: #111827 !important;
+}
+
+html.dark .newsletter-join-button:hover {
+  background-color: #5eead4 !important;
+}
+
 /* Ensure all elements transition smoothly */
 * {
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
@@ -300,5 +319,4 @@ html.dark .dot-background {
 html .text-zinc-600, html .text-zinc-500, html .text-zinc-400, html .text-zinc-900 {
   color: #3f4752 !important; /* darker neutral for improved contrast */
 }
-
 
