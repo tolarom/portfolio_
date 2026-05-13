@@ -35,8 +35,13 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 
-## Newsletter storage
+## Newsletter storage (Google Sheets API)
 
-The subscribe API writes to `data/subscribers.json` by default.
+The subscribe API stores entries in Google Sheets.
 
-For deployed environments, set `SUBSCRIBERS_FILE_PATH` to a persistent writable file path (for example, a mounted volume path) so newsletter submissions are saved across restarts.
+Set these environment variables:
+
+- `GOOGLE_SHEETS_CLIENT_EMAIL`
+- `GOOGLE_SHEETS_PRIVATE_KEY` (use `\n` for line breaks)
+- `GOOGLE_SHEETS_SPREADSHEET_ID`
+- `GOOGLE_SHEETS_SHEET_NAME` (optional, default: `Subscribers`)

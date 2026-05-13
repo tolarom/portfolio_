@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { readSubscribers, writeSubscribers } from "../_lib/subscribers";
+import { ensureSubscribersHeader, writeSubscribers } from "../_lib/subscribers";
 
 export async function POST(req: Request) {
   try {
@@ -9,11 +9,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
     }
 
-    const list = await readSubscribers();
-
-    list.push({ email, subscribedAt: new Date().toISOString(), message: typeof message === "string" ? message : undefined });
-
-    await writeSubscribers(list);
+    await ensureSubscribersHeader();
+    await writeSubscribers([
+      {
+        email,
+        subscribedAt: new Date().toISOString(),
+        message: typeof message === "string" ? message : undefined,
+      },
+    ]);
 
     return NextResponse.json({ ok: true });
   } catch (error) {
