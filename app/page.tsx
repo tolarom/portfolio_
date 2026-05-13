@@ -493,10 +493,10 @@ export default function Home() {
         {/* Newsletter Section */}
         <section className="mx-auto mt-20 max-w-4xl text-center mb-16 rounded-3xl bg-zinc-50 dark:bg-zinc-900 py-12 px-6 sm:px-12 border border-zinc-200 dark:border-zinc-800">
           <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-3xl">
-            Stay up to date
+            Get in Touch
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base text-zinc-600 dark:text-zinc-400 mb-8">
-            Get notified when I publish something new, and unsubscribe at any time.
+           Leave your email and message below. Your note goes straight to my tracker for a quick response.
           </p>
           <div className="flex justify-center max-w-lg mx-auto w-full">
             {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
