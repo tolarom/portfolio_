@@ -9,18 +9,23 @@ export type Subscriber = {
 function getSheetsConfig() {
   const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL?.trim();
   const privateKeyRaw = process.env.GOOGLE_SHEETS_PRIVATE_KEY?.trim();
-  const spreadsheetId = process.env.GOOGLE_SHEETS_SPREADSHEET_ID?.trim();
+  const spreadsheetId =
+    process.env.GOOGLE_SHEETS_SPREADSHEET_ID?.trim() ||
+    process.env.GOOGLE_SHEETS_SPREED_ID?.trim();
   const sheetName = process.env.GOOGLE_SHEETS_SHEET_NAME?.trim() || "Subscribers";
 
-  if (!clientEmail || !privateKeyRaw || !spreadsheetId) {
-    throw new Error(
-      "Missing Google Sheets config. Set GOOGLE_SHEETS_CLIENT_EMAIL, GOOGLE_SHEETS_PRIVATE_KEY, and GOOGLE_SHEETS_SPREADSHEET_ID.",
-    );
+  const missingVars: string[] = [];
+  if (!clientEmail) missingVars.push("GOOGLE_SHEETS_CLIENT_EMAIL");
+  if (!privateKeyRaw) missingVars.push("GOOGLE_SHEETS_PRIVATE_KEY");
+  if (!spreadsheetId) missingVars.push("GOOGLE_SHEETS_SPREADSHEET_ID");
+
+  if (missingVars.length > 0) {
+    throw new Error(`Missing Google Sheets config: ${missingVars.join(", ")}`);
   }
 
-  const privateKey = privateKeyRaw.replace(/\\n/g, "\n");
+  const privateKey = privateKeyRaw!.replace(/\\n/g, "\n");
 
-  return { clientEmail, privateKey, spreadsheetId, sheetName };
+  return { clientEmail: clientEmail!, privateKey, spreadsheetId: spreadsheetId!, sheetName };
 }
 
 function getSheetsClient() {
