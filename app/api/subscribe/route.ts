@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import fs from "fs/promises";
+import { readSubscribers, writeSubscribers } from "../_lib/subscribers";
 
 export async function POST(req: Request) {
   try {
@@ -9,23 +9,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Invalid email address" }, { status: 400 });
     }
 
-    const dir = `${process.cwd()}/data`;
-    const file = `${dir}/subscribers.json`;
+    const list = await readSubscribers();
 
-    await fs.mkdir(dir, { recursive: true });
+    list.push({ email, subscribedAt: new Date().toISOString(), message: typeof message === "string" ? message : undefined });
 
-    type Subscriber = { email: string; subscribedAt: string; message?: string };
-    let list: Subscriber[] = [];
-    try {
-      const raw = await fs.readFile(file, "utf8");
-      list = JSON.parse(raw) as Subscriber[];
-    } catch {
-      list = [];
-    }
-
-    list.push({ email, subscribedAt: new Date().toISOString(), message: typeof message === 'string' ? message : undefined });
-
-    await fs.writeFile(file, JSON.stringify(list, null, 2), "utf8");
+    await writeSubscribers(list);
 
     return NextResponse.json({ ok: true });
   } catch {

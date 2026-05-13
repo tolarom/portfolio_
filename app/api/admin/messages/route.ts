@@ -1,23 +1,9 @@
 import { NextResponse } from "next/server";
-import fs from "fs/promises";
-
-type Subscriber = {
-  email: string;
-  subscribedAt: string;
-  message?: string;
-};
+import { readSubscribers } from "../../_lib/subscribers";
 
 export async function GET() {
   try {
-    const file = `${process.cwd()}/data/subscribers.json`;
-
-    let list: Subscriber[] = [];
-    try {
-      const raw = await fs.readFile(file, "utf8");
-      list = JSON.parse(raw) as Subscriber[];
-    } catch {
-      list = [];
-    }
+    const list = await readSubscribers();
 
     return NextResponse.json(
       {
