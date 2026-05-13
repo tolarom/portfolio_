@@ -16,6 +16,9 @@ html {
   --theme-toggle-bg: #1a1a1a;
   --theme-toggle-fg: #f5f4f0;
   --theme-toggle-border: #333333;
+  --accent-bg: #0f766e;
+  --accent-bg-hover: #115e59;
+  --accent-fg: #ffffff;
 }
 
 html.dark {
@@ -30,6 +33,9 @@ html.dark {
   --theme-toggle-bg: #f5f4f0;
   --theme-toggle-fg: #1a1a1a;
   --theme-toggle-border: #cccccc;
+  --accent-bg: #2dd4bf;
+  --accent-bg-hover: #5eead4;
+  --accent-fg: #111827;
 }
 
 body {
@@ -271,21 +277,76 @@ button, a {
 
 /* Newsletter Join button: keep a clear accent color in both themes */
 html .newsletter-join-button {
-  background-color: #0f766e !important;
-  color: #ffffff !important;
+  background-color: var(--accent-bg) !important;
+  color: var(--accent-fg) !important;
 }
 
 html .newsletter-join-button:hover {
-  background-color: #115e59 !important;
+  background-color: var(--accent-bg-hover) !important;
 }
 
-html.dark .newsletter-join-button {
-  background-color: #2dd4bf !important;
-  color: #111827 !important;
+html a.inline-flex.cv-download-button,
+html.dark a.inline-flex.cv-download-button,
+html a.inline-flex.cv-download-button:hover,
+html.dark a.inline-flex.cv-download-button:hover {
+  color: #ffffff !important;
 }
 
-html.dark .newsletter-join-button:hover {
-  background-color: #5eead4 !important;
+/* Contact section contrast improvements */
+html .contact-status-badge {
+  background-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+  color: #1f2937 !important;
+}
+
+html .contact-info-card {
+  background-color: #334155 !important;
+  border-color: #475569 !important;
+}
+
+html .contact-item:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html .contact-icon {
+  background-color: rgba(148, 163, 184, 0.28) !important;
+  color: #f1f5f9 !important;
+}
+
+html .contact-item-title {
+  color: #f8fafc !important;
+}
+
+html .contact-item-value {
+  color: #cbd5e1 !important;
+}
+
+html.dark .contact-status-badge {
+  background-color: #1f2937 !important;
+  border-color: #374151 !important;
+  color: #e5e7eb !important;
+}
+
+html.dark .contact-info-card {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+}
+
+html.dark .contact-item:hover {
+  background-color: rgba(148, 163, 184, 0.16) !important;
+}
+
+html.dark .contact-icon {
+  background-color: rgba(148, 163, 184, 0.22) !important;
+  color: #f8fafc !important;
+}
+
+html.dark .contact-item-title {
+  color: #f8fafc !important;
+}
+
+html.dark .contact-item-value {
+  color: #cbd5e1 !important;
 }
 
 /* Ensure all elements transition smoothly */
@@ -319,4 +380,3 @@ html.dark .dot-background {
 html .text-zinc-600, html .text-zinc-500, html .text-zinc-400, html .text-zinc-900 {
   color: #3f4752 !important; /* darker neutral for improved contrast */
 }
-

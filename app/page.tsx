@@ -403,7 +403,7 @@ export default function Home() {
           <div className="rounded-3xl bg-zinc-100 px-6 py-12 dark:bg-zinc-800/80 sm:p-16 flex flex-col lg:flex-row gap-12 lg:gap-16 items-center justify-between text-zinc-900 dark:text-zinc-100 overflow-hidden relative">
 
             <div className="flex-1 w-full relative z-10">
-              <div className="inline-flex rounded-full bg-zinc-200 dark:bg-zinc-800 px-4 py-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-6 border border-zinc-300 dark:border-zinc-700">
+              <div className="contact-status-badge mb-6 inline-flex rounded-full border px-4 py-1.5 text-sm font-medium">
                 Available for internships & entry-level IT roles
               </div>
               <h2 className="mb-6 text-3xl font-extrabold sm:text-4xl lg:text-5xl tracking-tight text-zinc-900 dark:text-zinc-100">
@@ -416,7 +416,7 @@ export default function Home() {
               <a
                 href="/CV_Rom_Tola.pdf"
                 download
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 dark:bg-green-500 px-6 py-4 text-base font-semibold text-white dark:text-zinc-50 transition-all hover:bg-green-700 dark:hover:bg-green-400 hover:scale-105 active:scale-95 shadow-lg shadow-black/5 dark:shadow-black/20"
+                className="newsletter-join-button cv-download-button inline-flex items-center justify-center gap-2 rounded-xl px-6 py-4 text-base font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-black/5 dark:shadow-black/20"
               >
                 <svg
                   viewBox="0 0 16 16"
@@ -435,54 +435,54 @@ export default function Home() {
             </div>
 
             <div className="w-full lg:w-[450px] relative z-10 shrink-0">
-              <div className="rounded-2xl bg-zinc-800/50 p-6 sm:p-8 backdrop-blur-sm border border-zinc-700/50 shadow-xl space-y-6">
+              <div className="contact-info-card rounded-2xl border p-6 shadow-xl backdrop-blur-sm space-y-6 sm:p-8">
                 <a 
                   href="https://maps.app.goo.gl/tJTcr6E55V6uJkZWA" 
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex gap-5 items-start p-3 rounded-xl transition hover:bg-zinc-800"
+                  className="contact-item group flex items-start gap-5 rounded-xl p-3 transition"
                 >
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-zinc-700/50 text-zinc-300 group-hover:bg-zinc-700 group-hover:text-white transition">
+                  <span className="contact-icon flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
                       <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                       <circle cx="12" cy="10" r="3"></circle>
                     </svg>
                   </span>
                   <div>
-                    <h3 className="text-zinc-100 font-semibold mb-1 group-hover:text-white transition">Location</h3>
-                    <p className="text-zinc-400 text-sm leading-relaxed">279C, St 590, Sangkat Toul Songkae, Khan Russey Keo, Phnom Penh</p>
+                    <h3 className="contact-item-title mb-1 font-semibold">Location</h3>
+                    <p className="contact-item-value text-sm leading-relaxed">279C, St 590, Sangkat Toul Songkae, Khan Russey Keo, Phnom Penh</p>
                   </div>
                 </a>
 
                 <a 
                   href="mailto:tola.rom16@gmail.com" 
-                  className="group flex gap-5 items-center p-3 rounded-xl transition hover:bg-zinc-800"
+                  className="contact-item group flex items-center gap-5 rounded-xl p-3 transition"
                 >
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-zinc-700/50 text-zinc-300 group-hover:bg-zinc-700 group-hover:text-white transition">
+                  <span className="contact-icon flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
                       <rect width="20" height="16" x="2" y="4" rx="2"></rect>
                       <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                     </svg>
                   </span>
                   <div>
-                    <h3 className="text-zinc-100 font-semibold mb-1 group-hover:text-white transition">Email</h3>
-                    <p className="text-zinc-400 text-sm">tola.rom16@gmail.com</p>
+                    <h3 className="contact-item-title mb-1 font-semibold">Email</h3>
+                    <p className="contact-item-value text-sm">tola.rom16@gmail.com</p>
                   </div>
                 </a>
 
                 <a 
                   href="tel:+85511759486" 
-                  className="group flex gap-5 items-center p-3 rounded-xl transition hover:bg-zinc-800"
+                  className="contact-item group flex items-center gap-5 rounded-xl p-3 transition"
                 >
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-zinc-700/50 text-zinc-300 group-hover:bg-zinc-700 group-hover:text-white transition">
+                  <span className="contact-icon flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
                       <rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
                       <path d="M12 18h.01"></path>
                     </svg>
                   </span>
                   <div>
-                    <h3 className="text-zinc-100 font-semibold mb-1 group-hover:text-white transition">Phone</h3>
-                    <p className="text-zinc-400 text-sm">+855 11 759 486</p>
+                    <h3 className="contact-item-title mb-1 font-semibold">Phone</h3>
+                    <p className="contact-item-value text-sm">+855 11 759 486</p>
                   </div>
                 </a>
               </div>

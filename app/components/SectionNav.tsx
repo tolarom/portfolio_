@@ -57,10 +57,10 @@ export function SectionNav({ sections }: { sections: SectionLink[] }) {
             aria-current={activeHref === section.href ? "page" : undefined}
             className="rounded-full px-2 py-1 text-[0.66rem] font-semibold uppercase tracking-[0.14em] transition sm:px-2.5 sm:text-[0.72rem] sm:tracking-[0.16em]"
             style={{
-              color: activeHref === section.href ? "#ffffff" : "inherit",
+              color: activeHref === section.href ? "var(--accent-fg)" : "inherit",
               backgroundColor:
                 activeHref === section.href
-                  ? "rgba(34, 197, 94, 0.9)"
+                  ? "var(--accent-bg)"
                   : "transparent",
             }}
           >
