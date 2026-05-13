@@ -47,7 +47,7 @@ export default function NewsletterForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email address"
-          className="w-full rounded-lg border border-zinc-900/10 bg-white px-4 py-3 text-base shadow-sm outline-none placeholder:text-zinc-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-800/[0.4] dark:text-zinc-200 dark:placeholder:text-zinc-500"
+          className="w-full rounded-lg border border-zinc-900/10 bg-white px-4 py-3 text-base text-zinc-900 shadow-sm outline-none placeholder:text-zinc-500 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-800/[0.4] dark:text-zinc-100 dark:placeholder:text-zinc-500"
         />
       </div>
 
@@ -59,7 +59,7 @@ export default function NewsletterForm() {
           onChange={(e) => setMessageText(e.target.value)}
           placeholder="Optional message — how did you hear about me?"
           rows={3}
-          className="w-full rounded-lg border border-zinc-900/10 bg-white px-4 py-3 text-base shadow-sm outline-none placeholder:text-zinc-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-800/[0.4] dark:text-zinc-200 dark:placeholder:text-zinc-500"
+          className="w-full rounded-lg border border-zinc-900/10 bg-white px-4 py-3 text-base text-zinc-900 shadow-sm outline-none placeholder:text-zinc-500 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-800/[0.4] dark:text-zinc-100 dark:placeholder:text-zinc-500"
         />
       </div>
 
