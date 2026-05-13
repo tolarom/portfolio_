@@ -41,11 +41,46 @@ function getSheetsClient() {
   return { sheets, spreadsheetId, sheetName };
 }
 
+function sheetRange(sheetName: string, cells: string) {
+  const escapedSheetName = sheetName.replace(/'/g, "''");
+  return `'${escapedSheetName}'!${cells}`;
+}
+
+async function ensureSheetExists() {
+  const { sheets, spreadsheetId, sheetName } = getSheetsClient();
+  const metadata = await sheets.spreadsheets.get({
+    spreadsheetId,
+    fields: "sheets.properties.title",
+  });
+
+  const exists = Boolean(
+    metadata.data.sheets?.some((sheet) => sheet.properties?.title === sheetName),
+  );
+
+  if (exists) return;
+
+  await sheets.spreadsheets.batchUpdate({
+    spreadsheetId,
+    requestBody: {
+      requests: [
+        {
+          addSheet: {
+            properties: {
+              title: sheetName,
+            },
+          },
+        },
+      ],
+    },
+  });
+}
+
 export async function readSubscribers() {
   const { sheets, spreadsheetId, sheetName } = getSheetsClient();
+  await ensureSheetExists();
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!A:C`,
+    range: sheetRange(sheetName, "A:C"),
   });
 
   const rows = response.data.values ?? [];
@@ -64,10 +99,11 @@ export async function writeSubscribers(subscribers: Subscriber[]) {
   if (!latest) return;
 
   const { sheets, spreadsheetId, sheetName } = getSheetsClient();
+  await ensureSheetExists();
 
   await sheets.spreadsheets.values.append({
     spreadsheetId,
-    range: `${sheetName}!A:C`,
+    range: sheetRange(sheetName, "A:C"),
     valueInputOption: "RAW",
     requestBody: {
       values: [[latest.email, latest.subscribedAt, latest.message ?? ""]],
@@ -77,9 +113,10 @@ export async function writeSubscribers(subscribers: Subscriber[]) {
 
 export async function ensureSubscribersHeader() {
   const { sheets, spreadsheetId, sheetName } = getSheetsClient();
+  await ensureSheetExists();
   const response = await sheets.spreadsheets.values.get({
     spreadsheetId,
-    range: `${sheetName}!A1:C1`,
+    range: sheetRange(sheetName, "A1:C1"),
   });
 
   const firstRow = response.data.values?.[0];
@@ -89,7 +126,7 @@ export async function ensureSubscribersHeader() {
 
   await sheets.spreadsheets.values.update({
     spreadsheetId,
-    range: `${sheetName}!A1:C1`,
+    range: sheetRange(sheetName, "A1:C1"),
     valueInputOption: "RAW",
     requestBody: {
       values: [["email", "subscribedAt", "message"]],
