@@ -199,7 +199,7 @@ export default function Home() {
               👋 Welcome to my portfolio
             </div>
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-              IT Support • System Administration
+              IT Support • System Administration • Junior DevOps Engineer
             </h1>
             <div className="mt-5 space-y-5 text-sm text-zinc-600 dark:text-zinc-400 sm:mt-6 sm:space-y-6 sm:text-base">
               <p>
@@ -513,7 +513,7 @@ export default function Home() {
                 Tola Rom
               </h3>
               <p className="mt-1 text-sm font-medium text-teal-600 dark:text-teal-400">
-                IT Support • System Administration • Junior DevOps
+                IT Support • System Administration • Junior DevOps Engineer
               </p>
             </div>
 
