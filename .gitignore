@@ -1,40 +1,57 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# Recommended .gitignore for Next.js + Node projects
+# See https://help.github.com/articles/ignoring-files/ for details
 
-# dependencies
-/node_modules
-/.pnp
-.pnp.*
-.yarn/*
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/versions
+## Node dependencies
+/node_modules/
 
-# testing
-/coverage
-
-# next.js
+## Next.js build outputs
 /.next/
 /out/
 
-# production
-/build
+## Production builds
+/build/
 
-# misc
-.DS_Store
-*.pem
+## Static exports
+/dist/
 
-# debug
+## Local env files
+.env.local
+.env.*.local
+
+## Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+## Testing
+/coverage/
 
+## Editor directories and files
+.vscode/
+.idea/
 
-# vercel
-.vercel
+## OS files
+.DS_Store
 
-# typescript
+## Certificates, keys
+*.pem
+
+## Debug cache files
+.eslintcache
+
+## Vercel
+.vercel/
+
+## TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+## Misc caches
+.cache/
+.parcel-cache/
+.turbo/
+
+## Optional: ignore built node artifacts
+npm-debug.log*
+
