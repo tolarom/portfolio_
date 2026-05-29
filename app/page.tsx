@@ -2,6 +2,7 @@ import NewsletterForm from "./components/NewsletterForm";
 import { SectionNav } from "./components/SectionNav";
 import Image from "next/image";
 import Link from "next/link";
+import ProjectList from "./components/ProjectList";
 
 export default function Home() {
   const sections = [
@@ -134,8 +135,17 @@ export default function Home() {
     },
     {
       category: "DevOps & Infrastructure",
-      items: ["Jenkins", "Ansible", "Docker", "Git/GitHub", "CI/CD pipelines"],
+      items: [
+        "Git/GitHub",
+        "Docker",
+        "Linux",
+        "CI/CD",
+        "Server Deployment",
+        "Vercel",
+        "Netlify"
+      ],
     },
+
     {
       category: "Databases & Programming",
       items: [
@@ -145,6 +155,18 @@ export default function Home() {
         "Java / Spring Boot (Basics)",
         "Python (Basics)",
       ],
+    },
+    {
+      category: "Web Deployment",
+      items: 
+        [
+          "HTML5",
+          "CSS3",
+          "JavaScript",
+          "VueJs (Basics)",
+          "Responsive Design",
+          "REST API Integration",
+        ],
     },
     {
       category: "Virtualization",
@@ -158,6 +180,7 @@ export default function Home() {
       description:
         "Configured a CI/CD pipeline using Jenkins and Ansible to automatically deploy a Spring Boot application to a remote Linux server via SSH.",
       tags: ["Jenkins", "Ansible", "Linux", "Spring Boot"],
+      category: "CI/CD",
       link: "#",
     },
     {
@@ -165,6 +188,7 @@ export default function Home() {
       description:
         "Installed and configured PostgreSQL locally for Spring Boot application development, managing users and authentication.",
       tags: ["PostgreSQL", "Database Admin", "Spring Boot"],
+      category: "Database",
       link: "#",
     },
     {
@@ -172,6 +196,7 @@ export default function Home() {
       description:
         "Created and managed Linux server environments for testing. Handled users, permissions, SSH configuration, and UFW firewall setup.",
       tags: ["Ubuntu Server", "SSH", "Linux Admin", "Firewall"],
+      category: "Linux Administration",
       link: "#",
     },
     {
@@ -179,6 +204,7 @@ export default function Home() {
       description:
         "Built and deployed a Spring Boot REST API integrated with PostgreSQL using Maven build processes and Linux deployment.",
       tags: ["Spring Boot", "REST API", "Maven", "Deployment"],
+      category: "Deployment",
       link: "#",
     },
   ];
@@ -199,13 +225,14 @@ export default function Home() {
               👋 Welcome to my portfolio
             </div>
             <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-              IT Support • System Administration • Junior DevOps Engineer
+              IT Student • Flexible Across IT Fields
             </h1>
             <div className="mt-5 space-y-5 text-sm text-zinc-600 dark:text-zinc-400 sm:mt-6 sm:space-y-6 sm:text-base">
               <p>
-                I am an IT student focused on infrastructure, server management,
-                automation, and troubleshooting. I enjoy working with Linux
-                servers, CI/CD pipelines, networking, and deployment systems.
+                I am an IT student with a broad interest in infrastructure,
+                support, networking, development, and system administration. I
+                am adaptable and ready to contribute in any IT field where my
+                skills are needed.
               </p>
               <p>
                 I have hands-on experience configuring Jenkins agents,
@@ -213,8 +240,8 @@ export default function Home() {
                 databases, and deploying Spring Boot applications.
               </p>
               <p>
-                My goal is to work in IT Support, System Administration,
-                Infrastructure Support, or as a Junior DevOps Engineer.
+                My goal is to build experience in any IT field, including IT
+                support, system administration, infrastructure, or DevOps.
               </p>
             </div>
             <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-5">
@@ -350,52 +377,7 @@ export default function Home() {
           <h2 className="mb-8 text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 sm:text-3xl">
             Featured Projects
           </h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 sm:gap-6">
-            {projects.map((project) => (
-              <a
-                key={project.title}
-                href={project.link}
-                className="group relative rounded-2xl border border-zinc-100 bg-white p-4 shadow-sm transition hover:shadow-lg hover:-translate-y-1 dark:border-zinc-700/40 dark:bg-zinc-900/40 sm:p-6"
-              >
-                <div className="relative z-10">
-                  <div className="mb-4 h-28 w-full overflow-hidden rounded-md bg-zinc-100 dark:bg-zinc-800 sm:h-36" />
-                  <h3 className="text-base font-semibold text-zinc-900 dark:text-zinc-100 sm:text-lg">
-                    {project.title}
-                  </h3>
-                  <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400 sm:text-sm">
-                    {project.description}
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full bg-teal-50 px-2 py-1 text-xs font-medium text-teal-700 dark:bg-teal-900/20 dark:text-teal-300"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-6">
-                    <span className="inline-flex items-center gap-2 text-sm font-medium text-teal-600 transition group-hover:text-teal-700">
-                      View Project
-                      <svg
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        className="h-4 w-4 stroke-current"
-                      >
-                        <path
-                          d="M4.75 8.75 8 12.25m0 0 3.25-3.5M8 12.25v-8.5"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </span>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
+          <ProjectList projects={projects} />
         </section>
 
         {/* Contact Section */}
