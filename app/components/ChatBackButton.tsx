@@ -9,7 +9,7 @@ export default function ChatBackButton() {
     <button
       onClick={() => router.back()}
       aria-label="Go back"
-      className="fixed left-8 top-12 z-50 flex items-center justify-center h-12 w-12 rounded-full bg-white/90 border border-zinc-200 text-zinc-700 shadow-lg hover:bg-teal-50 dark:bg-zinc-900/90 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-teal-700/10"
+      className="fixed left-3 sm:left-8 top-4 sm:top-12 z-50 flex items-center justify-center h-14 w-14 sm:h-12 sm:w-12 rounded-full bg-white/90 border border-zinc-200 text-zinc-700 shadow-lg hover:bg-teal-50 dark:bg-zinc-900/90 dark:border-zinc-700 dark:text-zinc-100 dark:hover:bg-teal-700/10"
     >
       <span className="sr-only">Back</span>
       <svg
