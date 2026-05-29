@@ -2,7 +2,6 @@ import { readFileSync } from "node:fs";
 
 type PortfolioFacts = {
   name: string;
-  birthdate?: string;
   headline: string;
   summary: string;
   education: Array<{
@@ -20,8 +19,9 @@ type PortfolioFacts = {
     email: string;
     phone: string;
     location: string;
-    github: string;
-    linkedin: string;
+    github?: string;
+    linkedin?: string;
+    socialLinks?: Array<{ label: string; href: string }>;
   };
   goals: string[];
   interests?: string[];
@@ -64,7 +64,9 @@ export function buildPortfolioContext() {
     `- Phone: ${portfolioFacts.contact.phone}`,
     `- Location: ${portfolioFacts.contact.location}`,
     `- GitHub: ${portfolioFacts.contact.github}`,
-    `- LinkedIn: ${portfolioFacts.contact.linkedin}`,
+    ...(portfolioFacts.contact.github ? [`- GitHub: ${portfolioFacts.contact.github}`] : []),
+    ...(portfolioFacts.contact.linkedin ? [`- LinkedIn: ${portfolioFacts.contact.linkedin}`] : []),
+    ...(portfolioFacts.contact.socialLinks ? portfolioFacts.contact.socialLinks.map(s => `- ${s.label}: ${s.href}`) : []),
     ...(interests ? ["Interests:", interests] : []),
     ...(hobbies ? ["Hobbies:", hobbies] : []),
   ].join("\n");

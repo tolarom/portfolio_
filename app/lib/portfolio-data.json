@@ -1,8 +1,16 @@
 {
   "name": "Tola Rom",
-  "birthdate": "2003-11-16",
-  "headline": "IT Support, System Administration, and Junior DevOps portfolio",
+  "headline": "IT Student • Flexible Across IT Fields",
   "summary": "An IT student with a broad interest in infrastructure, support, networking, development, and system administration.",
+  "profile": {
+    "eyebrow": "👋 Welcome to my portfolio",
+    "title": "IT Student • Flexible Across IT Fields",
+    "paragraphs": [
+      "I am an IT student with a broad interest in infrastructure, support, networking, development, and system administration. I am adaptable and ready to contribute in any IT field where my skills are needed.",
+      "I have hands-on experience configuring Jenkins agents, automating deployments with Ansible, managing PostgreSQL databases, and deploying Spring Boot applications.",
+      "My goal is to build experience in any IT field, including IT support, system administration, infrastructure, or DevOps."
+    ]
+  },
   "education": [
     {
       "school": "Institute of Technology of Cambodia",
@@ -22,59 +30,119 @@
     }
   ],
   "skills": [
-    "Windows 10/11",
-    "Linux Ubuntu Server",
-    "Windows Server (Basic)",
-    "TCP/IP",
-    "SSH",
-    "DNS/DHCP",
-    "Firewall Configuration",
-    "VLANs",
-    "Git/GitHub",
-    "Docker",
-    "Linux",
-    "CI/CD",
-    "Server Deployment",
-    "Vercel",
-    "Netlify",
-    "PostgreSQL",
-    "MySQL",
-    "Bash Scripting",
-    "Java / Spring Boot (Basics)",
-    "Python (Basics)",
-    "HTML5",
-    "CSS3",
-    "JavaScript",
-    "VueJs (Basics)",
-    "Responsive Design",
-    "REST API Integration",
-    "VirtualBox",
-    "VMware"
+    {
+      "category": "Operating Systems",
+      "items": [
+        "Windows 10/11",
+        "Linux Ubuntu Server",
+        "Windows Server (Basic)"
+      ]
+    },
+    {
+      "category": "Networking",
+      "items": ["TCP/IP", "SSH", "DNS/DHCP", "Firewall Configuration", "VLANs"]
+    },
+    {
+      "category": "DevOps & Infrastructure",
+      "items": [
+        "Git/GitHub",
+        "Docker",
+        "Linux",
+        "CI/CD",
+        "Server Deployment",
+        "Vercel",
+        "Netlify"
+      ]
+    },
+    {
+      "category": "Databases & Programming",
+      "items": [
+        "PostgreSQL",
+        "MySQL",
+        "Bash Scripting",
+        "Java / Spring Boot (Basics)",
+        "Python (Basics)"
+      ]
+    },
+    {
+      "category": "Web Deployment",
+      "items": [
+        "HTML5",
+        "CSS3",
+        "JavaScript",
+        "VueJs (Basics)",
+        "Responsive Design",
+        "REST API Integration"
+      ]
+    },
+    {
+      "category": "Virtualization",
+      "items": ["VirtualBox", "VMware"]
+    }
   ],
   "projects": [
     {
       "title": "Jenkins + Ansible Deployment Pipeline",
-      "description": "A CI/CD pipeline that automatically deploys a Spring Boot application to a remote Linux server via SSH."
+      "description": "A CI/CD pipeline that automatically deploys a Spring Boot application to a remote Linux server via SSH.",
+      "tags": ["Jenkins", "Ansible", "Linux", "Spring Boot"],
+      "category": "CI/CD",
+      "link": "#"
     },
     {
       "title": "PostgreSQL Database Configuration",
-      "description": "Local PostgreSQL setup for Spring Boot development, including user and authentication management."
+      "description": "Local PostgreSQL setup for Spring Boot development, including user and authentication management.",
+      "tags": ["PostgreSQL", "Database Admin", "Spring Boot"],
+      "category": "Database",
+      "link": "#"
     },
     {
       "title": "Linux Server Administration Lab",
-      "description": "Linux server environment practice covering users, permissions, SSH, and UFW firewall setup."
+      "description": "Linux server environment practice covering users, permissions, SSH, and UFW firewall setup.",
+      "tags": ["Ubuntu Server", "SSH", "Linux Admin", "Firewall"],
+      "category": "Linux Administration",
+      "link": "#"
     },
     {
       "title": "Spring Boot Deployment Project",
-      "description": "A Spring Boot REST API integrated with PostgreSQL and deployed with Maven and Linux tooling."
+      "description": "A Spring Boot REST API integrated with PostgreSQL and deployed with Maven and Linux tooling.",
+      "tags": ["Spring Boot", "REST API", "Maven", "Deployment"],
+      "category": "Deployment",
+      "link": "#"
     }
   ],
   "contact": {
     "email": "tola.rom16@gmail.com",
     "phone": "+855 11 759 486",
-    "location": "Phnom Penh, Cambodia",
+    "location": "279C, St 590, Sangkat Toul Songkae, Khan Russey Keo, Phnom Penh",
+    "mapUrl": "https://maps.app.goo.gl/tJTcr6E55V6uJkZWA",
     "github": "https://github.com/tolarom",
-    "linkedin": "https://www.linkedin.com/in/tola-rom-292151374/"
+    "linkedin": "https://www.linkedin.com/in/tola-rom-292151374/",
+    "socialLinks": [
+      {
+        "label": "GitHub",
+        "href": "https://github.com/tolarom"
+      },
+      {
+        "label": "LinkedIn",
+        "href": "https://www.linkedin.com/in/tola-rom-292151374/"
+      },
+      {
+        "label": "Email",
+        "href": "mailto:tola.rom16@gmail.com"
+      },
+      {
+        "label": "Facebook",
+        "href": "https://www.facebook.com/nachooloveu"
+      },
+      {
+        "label": "Instagram",
+        "href": "https://www.instagram.com/cowardlynachoo?igsh=eGRwaXJtYW5mb2c4"
+      },
+      {
+        "label": "Telegram",
+        "href": "https://t.me/ilovesharkishark"
+      }
+    ]
   },
   "goals": [
     "IT Support",
@@ -82,8 +150,7 @@
     "Infrastructure Support",
     "Junior DevOps",
     "Entry-level IT roles"
-  ]
-  ,
+  ],
   "interests": [
     "infrastructure automation",
     "networking",
@@ -93,6 +160,10 @@
   "hobbies": [
     "photography",
     "playing guitar",
-    "cycling"
+    "cycling",
+    "traveling",
+    "cooking",
+    "gaming",
+    "football"
   ]
 }

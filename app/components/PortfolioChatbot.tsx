@@ -1,6 +1,7 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
+import React from "react";
 
 type ChatMessage = {
   role: "user" | "assistant";
@@ -19,22 +20,18 @@ export default function PortfolioChatbot() {
   const [isSending, setIsSending] = useState(false);
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
-  const suggestedQuestions = useMemo(() => [], []);
-
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    await sendText(input);
+    await sendMessage();
   }
 
-  async function sendText(text: string) {
-    const trimmed = text.trim();
-    if (!trimmed || isSending) {
-      return;
-    }
+  async function sendMessage() {
+    const trimmed = input.trim();
+    if (!trimmed || isSending) return;
 
     const nextMessages = [...messages, { role: "user", content: trimmed } as ChatMessage];
     setMessages(nextMessages);
@@ -94,7 +91,9 @@ export default function PortfolioChatbot() {
                       : "max-w-[90%] rounded-2xl rounded-tr-sm px-5 py-4 text-lg leading-7 text-white shadow-sm chat-message-user"
                   }
                 >
-                  {message.content}
+                  <div className="whitespace-pre-wrap">
+                    {renderMessageContent(message.content)}
+                  </div>
                 </div>
               </div>
             ))}
@@ -112,10 +111,10 @@ export default function PortfolioChatbot() {
               onKeyDown={(event) => {
                 if (event.key === "Enter" && !event.shiftKey) {
                   event.preventDefault();
-                  void sendText(input);
+                  void sendMessage();
                 }
               }}
-              placeholder="Ask about skills, education, projects, or contact info..."
+              placeholder="Ask about Tola's informations..."
               rows={4}
               className="w-full resize-none rounded-2xl border border-zinc-200 bg-white px-4 py-3 text-base text-zinc-900 outline-none transition placeholder:text-zinc-400 focus:border-teal-400 focus:ring-2 focus:ring-teal-200 dark:border-zinc-700 dark:bg-zinc-950 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-teal-500 dark:focus:ring-teal-500/20 chat-textarea"
             />
@@ -135,4 +134,28 @@ export default function PortfolioChatbot() {
       </div>
     </div>
   );
+
+  function renderMessageContent(text: string) {
+    if (!text) return null;
+    // Regex to find URLs
+    const urlRegex = /https?:\/\/[\w\-./?&=#%:+,]+/g;
+    const parts: Array<string | React.ReactNode> = [];
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+    while ((match = urlRegex.exec(text)) !== null) {
+      const idx = match.index;
+      if (idx > lastIndex) parts.push(text.slice(lastIndex, idx));
+      const url = match[0];
+      parts.push(
+        <a key={idx} href={url} target="_blank" rel="noopener noreferrer" className="underline text-teal-600">
+          {url}
+        </a>
+      );
+      lastIndex = idx + url.length;
+    }
+    if (lastIndex < text.length) parts.push(text.slice(lastIndex));
+    // If no URLs found, just return the text
+    if (parts.length === 1 && typeof parts[0] === "string") return parts[0];
+    return parts.map((p, i) => (typeof p === "string" ? <span key={i}>{p}</span> : p));
+  }
 }

@@ -23,7 +23,10 @@ export async function POST(req: Request) {
     const { messages } = (await req.json()) as { messages?: ChatMessage[] };
 
     if (!Array.isArray(messages) || messages.length === 0) {
-      return NextResponse.json({ error: "No messages provided" }, { status: 400 });
+      return NextResponse.json(
+        { error: "No messages provided" },
+        { status: 400 },
+      );
     }
 
     const latestMessage = messages[messages.length - 1]?.content ?? "";
@@ -36,7 +39,7 @@ export async function POST(req: Request) {
     if (!apiKey) {
       return NextResponse.json(
         { error: "Missing Gemini API key" },
-        { status: 500 }
+        { status: 500 },
       );
     }
 
@@ -62,7 +65,9 @@ export async function POST(req: Request) {
                   "Answer visitor questions using only the portfolio facts below.",
                   "If a question is outside the facts, say you do not know and suggest contacting Tola directly.",
                   "Keep responses concise, friendly, and practical.",
-                  "",
+                  "When an answer contains multiple points, return each point on its own line prefixed with '- '.",
+                  "Do not use Markdown emphasis. Keep answers concise and factual.",
+                  "Avoid long paragraphs; prefer short bullet lines for lists or multiple points.",
                   buildPortfolioContext(),
                 ].join("\n"),
               },
@@ -74,7 +79,7 @@ export async function POST(req: Request) {
             maxOutputTokens: 500,
           },
         }),
-      }
+      },
     );
 
     if (!response.ok) {
@@ -94,8 +99,7 @@ export async function POST(req: Request) {
       data.candidates?.[0]?.content?.parts
         ?.map((part) => part.text ?? "")
         .join("")
-        .trim() ||
-      buildFallbackAnswer(latestMessage);
+        .trim() || buildFallbackAnswer(latestMessage);
 
     return NextResponse.json({ answer });
   } catch {
@@ -107,23 +111,58 @@ export async function POST(req: Request) {
 }
 
 function buildLocalReply(question: string) {
-  const normalizedQuestion = question.toLowerCase().trim();
+  // sanitize input: remove common pasted assistant prefix and trim
+  const sanitized = question
+    .replace(/I can answer questions about [\s\S]*?based on the portfolio data\.?/i, "")
+    .replace(/I can answer questions about [\s\S]*?\./i, "")
+    .trim();
+  const normalizedQuestion = sanitized.toLowerCase().trim();
 
   if (!normalizedQuestion) {
     return null;
   }
 
   // Birthday quick-reply
-  if (/\b(my birthday|its my birthday|it's my birthday|today is my birthday|happy birthday to me|i'm celebrating my birthday|i am celebrating my birthday)\b/i.test(normalizedQuestion)) {
+  if (
+    /\b(my birthday|its my birthday|it's my birthday|today is my birthday|happy birthday to me|i'm celebrating my birthday|i am celebrating my birthday)\b/i.test(
+      normalizedQuestion,
+    )
+  ) {
     const who = portfolioFacts?.name ? `, ${portfolioFacts.name}` : "";
     return `Happy birthday${who}! 🎉 I hope you have a wonderful day.`;
   }
 
-  if (/^(hi|hello|hey|yo|good morning|good afternoon|good evening)[!.?\s]*$/i.test(normalizedQuestion)) {
+  if (
+    /^(hi|hello|hey|yo|good morning|good afternoon|good evening)[!.?\s]*$/i.test(
+      normalizedQuestion,
+    )
+  ) {
     return "Hello. What would you like to know about Tola?";
   }
 
-  if (/^(how are you|how's it going|whats up|what's up|sup)[!.?\s]*$/i.test(normalizedQuestion)) {
+    // Confirmatory questions like "so he can play football" or "can he play football?"
+    const confirmMatch = normalizedQuestion.match(/(?:so\s+he\s+can|can\s+he|does\s+he|so\s+he)\s+(?:play\s+)?([a-z\s]+)/i);
+    if (confirmMatch) {
+      const item = confirmMatch[1].toLowerCase().trim();
+      const hobbies = (portfolioFacts.hobbies ?? []).map((h) => h.toLowerCase());
+      const found = hobbies.find((h) => h.includes(item) || item.includes(h));
+      if (found) {
+        const prettyFound = portfolioFacts.hobbies?.find(h => h.toLowerCase() === found) ?? found;
+        const others = (portfolioFacts.hobbies ?? []).filter(h => h.toLowerCase() !== found);
+        const extras = others.slice(0, 3);
+        if (extras.length > 0) {
+          return `Yes — Tola ${found.includes('football') ? 'plays football' : `enjoys ${prettyFound}`}. He also likes ${extras.join(', ')}.`;
+        }
+        return `Yes — Tola ${found.includes('football') ? 'plays football' : `enjoys ${prettyFound}`}.`;
+      }
+      return `I don't see that listed among Tola's hobbies.`;
+    }
+
+  if (
+    /^(how are you|how's it going|whats up|what's up|sup)[!.?\s]*$/i.test(
+      normalizedQuestion,
+    )
+  ) {
     return "I’m good. I can help with Tola’s skills, projects, education, or contact details.";
   }
 
@@ -135,7 +174,11 @@ function buildLocalReply(question: string) {
     return "Bye. Come back anytime if you want to know more about Tola.";
   }
 
-  if (/^(who are you|what are you|tell me about yourself)[!.?\s]*$/i.test(normalizedQuestion)) {
+  if (
+    /^(who are you|what are you|tell me about yourself)[!.?\s]*$/i.test(
+      normalizedQuestion,
+    )
+  ) {
     return "I’m Tola’s portfolio assistant. I can answer questions about his background, skills, projects, and contact details.";
   }
 
@@ -143,19 +186,41 @@ function buildLocalReply(question: string) {
 }
 
 function buildFallbackAnswer(question: string) {
+  function formatMaybeBulleted(items: string[], header?: string) {
+    const visible = items.filter(Boolean);
+    if (visible.length === 0)
+      return header ? `${header} not listed.` : "not listed.";
+    if (visible.length === 1)
+      return header ? `${header} ${visible[0]}` : visible[0];
+    const lines = visible.map((i) => `- ${i}`).join("\n");
+    return header ? `${header}\n${lines}` : lines;
+  }
+
   const normalizedQuestion = question.toLowerCase();
 
-  if (/^(hi|hello|hey|yo|good morning|good afternoon|good evening)[!.?\s]*$/i.test(normalizedQuestion)) {
+  if (
+    /^(hi|hello|hey|yo|good morning|good afternoon|good evening)[!.?\s]*$/i.test(
+      normalizedQuestion,
+    )
+  ) {
     return "Hello. What would you like to know about Tola?";
   }
 
   // Birthday fallback reply
-  if (/\b(my birthday|its my birthday|it's my birthday|today is my birthday|happy birthday to me|i'm celebrating my birthday|i am celebrating my birthday)\b/i.test(normalizedQuestion)) {
+  if (
+    /\b(my birthday|its my birthday|it's my birthday|today is my birthday|happy birthday to me|i'm celebrating my birthday|i am celebrating my birthday)\b/i.test(
+      normalizedQuestion,
+    )
+  ) {
     const who = portfolioFacts?.name ? `, ${portfolioFacts.name}` : "";
     return `Happy birthday${who}! 🎉 The assistant is using local data right now, but I hope you have a great day.`;
   }
 
-  if (/^(how are you|how's it going|whats up|what's up|sup)[!.?\s]*$/i.test(normalizedQuestion)) {
+  if (
+    /^(how are you|how's it going|whats up|what's up|sup)[!.?\s]*$/i.test(
+      normalizedQuestion,
+    )
+  ) {
     return "I’m good. I can help with Tola’s skills, projects, education, or contact details.";
   }
 
@@ -167,24 +232,79 @@ function buildFallbackAnswer(question: string) {
     return "Bye. Come back anytime if you want to know more about Tola.";
   }
 
-  if (/^(who are you|what are you|tell me about yourself)[!.?\s]*$/i.test(normalizedQuestion)) {
+  if (
+    /^(who are you|what are you|tell me about yourself)[!.?\s]*$/i.test(
+      normalizedQuestion,
+    )
+  ) {
     return "I’m Tola’s portfolio assistant. I can answer questions about his background, skills, projects, and contact details.";
   }
 
   if (/skill|stack|know|can he do|expert/i.test(normalizedQuestion)) {
-    return `Tola's main skills include ${portfolioFacts.skills.slice(0, 6).join(", ")} and more across Linux, networking, deployment, and web fundamentals. If you want the full list, ask about skills again or contact him directly. `;
+    const header = "Tola's main skills include:";
+    const body = formatMaybeBulleted(portfolioFacts.skills, header);
+    return `${body}\n\nIf you want the full list, ask about skills again or contact him directly.`;
   }
 
   if (/project|work|built|portfolio/i.test(normalizedQuestion)) {
-    return `He has worked on projects like ${portfolioFacts.projects[0].title}, ${portfolioFacts.projects[1].title}, ${portfolioFacts.projects[2].title}, and ${portfolioFacts.projects[3].title}. ${portfolioFacts.projects[0].description}`;
+    const projectLines = portfolioFacts.projects.map(
+      (p) => `${p.title}: ${p.description}`,
+    );
+    return formatMaybeBulleted(projectLines, "Notable projects:");
   }
 
   if (/education|school|study|college|university/i.test(normalizedQuestion)) {
-    return `He is studying ${portfolioFacts.education[0].degree} at ${portfolioFacts.education[0].school} and also completed an English Language Diploma at ${portfolioFacts.education[1].school}.`;
+    const educationLines = portfolioFacts.education.map(
+      (e) =>
+        `${e.school}: ${e.degree} (${e.period}${e.status ? `, ${e.status}` : ""})`,
+    );
+    return formatMaybeBulleted(educationLines, "Education:");
   }
 
   if (/contact|email|phone|reach|linkedin|github/i.test(normalizedQuestion)) {
-    return `You can reach Tola at ${portfolioFacts.contact.email}, ${portfolioFacts.contact.phone}, or through GitHub and LinkedIn. The assistant is temporarily using a local fallback because Gemini quota is unavailable.`;
+    const fb = portfolioFacts.contact.socialLinks?.find((s) =>
+      /facebook/i.test(s.label),
+    )?.href;
+    const github =
+      portfolioFacts.contact.github ??
+      portfolioFacts.contact.socialLinks?.find((s) => /github/i.test(s.label))
+        ?.href;
+    const linkedin =
+      portfolioFacts.contact.linkedin ??
+      portfolioFacts.contact.socialLinks?.find((s) => /linkedin/i.test(s.label))
+        ?.href;
+    const parts = [
+      `Email: ${portfolioFacts.contact.email}`,
+      portfolioFacts.contact.phone
+        ? `Phone: ${portfolioFacts.contact.phone}`
+        : null,
+    ];
+    if (github) parts.push(`GitHub: ${github}`);
+    if (linkedin) parts.push(`LinkedIn: ${linkedin}`);
+    if (fb) parts.push(`Facebook: ${fb}`);
+    parts.push(
+      "The assistant is temporarily using a local fallback because Gemini quota is unavailable.",
+    );
+    return formatMaybeBulleted(
+      parts.filter(Boolean) as string[],
+      "Contact details:",
+    );
+  }
+
+  if (/facebook|fb/i.test(normalizedQuestion)) {
+    const fb = portfolioFacts.contact.socialLinks?.find((s) =>
+      /facebook/i.test(s.label),
+    )?.href;
+    if (fb) return formatMaybeBulleted([fb], "Tola's Facebook:");
+    return `Facebook link is not listed for Tola.`;
+  }
+
+  if (/hobby|hobbies|interest|interests/i.test(normalizedQuestion)) {
+    const hobbies = portfolioFacts.hobbies ?? [];
+    const interests = portfolioFacts.interests ?? [];
+    const hobbiesStr = formatMaybeBulleted(hobbies, "Hobbies:");
+    const interestsStr = formatMaybeBulleted(interests, "Interests:");
+    return `${hobbiesStr}\n\n${interestsStr}`;
   }
 
   return `I can answer questions about Tola's education, skills, projects, and contact details. The assistant is currently using a local fallback based on the portfolio data.`;
