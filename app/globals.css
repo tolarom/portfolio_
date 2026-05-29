@@ -380,3 +380,30 @@ html.dark .dot-background {
 html .text-zinc-600, html .text-zinc-500, html .text-zinc-400, html .text-zinc-900 {
   color: #3f4752 !important; /* darker neutral for improved contrast */
 }
+
+/* Chat UI specific improvements */
+.chat-message-assistant {
+  background-color: var(--surface-strong) !important;
+  color: var(--foreground) !important;
+  border: 1px solid var(--border-subtle) !important;
+}
+
+.chat-message-user {
+  background-color: var(--accent-bg) !important;
+  color: var(--accent-fg) !important;
+}
+
+.chat-textarea {
+  font-size: 1rem !important; /* ensure textarea text is comfortable */
+}
+
+/* Slightly larger text for the chat messages on smaller screens */
+.chat-message-assistant, .chat-message-user {
+  font-size: 1.0625rem !important; /* ~17px */
+}
+
+html.dark .chat-message-user {
+  /* ensure readable teal in dark mode */
+  background-color: var(--accent-bg) !important;
+  color: var(--accent-fg) !important;
+}

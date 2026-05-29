@@ -1,7 +1,6 @@
 import NewsletterForm from "./components/NewsletterForm";
-import { SectionNav } from "./components/SectionNav";
 import Image from "next/image";
-import Link from "next/link";
+import { SectionNav } from "./components/SectionNav";
 import ProjectList from "./components/ProjectList";
 
 export default function Home() {
@@ -281,6 +280,8 @@ export default function Home() {
             />
           </div>
         </section>
+
+        {/* Assistant section removed per request */}
 
         {/* Education Section */}
         <section
