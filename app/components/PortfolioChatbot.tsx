@@ -11,7 +11,7 @@ type ChatMessage = {
 const starterMessage: ChatMessage = {
   role: "assistant",
   content:
-    "Ask me about Tola's education, skills, projects, or contact details. I can also help explain what kind of roles he is looking for.",
+    "Ask me anything about Tola's infiormations. Just type your question below!",
 };
 
 export default function PortfolioChatbot() {
@@ -120,7 +120,7 @@ export default function PortfolioChatbot() {
             />
             <div className="mt-3 flex items-center justify-between gap-3">
               <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                Powered by Gemini and the portfolio knowledge in this app.
+                Powered by Gemini.
               </p>
               <button
                 type="submit"
