@@ -86,28 +86,32 @@
       "description": "A CI/CD pipeline that automatically deploys a Spring Boot application to a remote Linux server via SSH.",
       "tags": ["Jenkins", "Ansible", "Linux", "Spring Boot"],
       "category": "CI/CD",
-      "link": "#"
+      "link": "#",
+      "images": ["/test.png", "/globe.svg", "/vercel.svg"]
     },
     {
       "title": "PostgreSQL Database Configuration",
       "description": "Local PostgreSQL setup for Spring Boot development, including user and authentication management.",
       "tags": ["PostgreSQL", "Database Admin", "Spring Boot"],
       "category": "Database",
-      "link": "#"
+      "link": "#",
+      "images": ["/globe.svg", "/next.svg"]
     },
     {
       "title": "Linux Server Administration Lab",
       "description": "Linux server environment practice covering users, permissions, SSH, and UFW firewall setup.",
       "tags": ["Ubuntu Server", "SSH", "Linux Admin", "Firewall"],
       "category": "Linux Administration",
-      "link": "#"
+      "link": "#",
+      "images": ["/vercel.svg", "/window.svg", "/globe.svg"]
     },
     {
       "title": "Spring Boot Deployment Project",
       "description": "A Spring Boot REST API integrated with PostgreSQL and deployed with Maven and Linux tooling.",
       "tags": ["Spring Boot", "REST API", "Maven", "Deployment"],
       "category": "Deployment",
-      "link": "#"
+      "link": "#",
+      "images": ["/next.svg", "/vercel.svg"]
     }
   ],
   "contact": {
@@ -136,7 +140,7 @@
       },
       {
         "label": "Instagram",
-        "href": "https://www.instagram.com/cowardlynachoo?igsh=eGRwaXJtYW5mb2c4"
+        "href": "https://www.instagram.com/cowardlywolff?igsh=eGRwaXJtYW5mb2c4&utm_source=qr"
       },
       {
         "label": "Telegram",
@@ -152,18 +156,24 @@
     "Entry-level IT roles"
   ],
   "interests": [
-    "infrastructure automation",
     "networking",
-    "cloud platforms",
-    "DevOps practices"
+    "DevOps practices",
+    "IT support",
+    "system administration"
   ],
-  "hobbies": [
-    "photography",
-    "playing guitar",
-    "cycling",
-    "traveling",
-    "cooking",
-    "gaming",
-    "football"
+  "hobbies": ["photography", "traveling", "cooking", "gaming", "football"],
+  "languages": [
+    {
+      "language": "English",
+      "proficiency": "Intermediate"
+    },
+    {
+      "language": "Khmer",
+      "proficiency": "Native"
+    },
+    {
+      "language": "French",
+      "proficiency": "Elementary"
+    }
   ]
 }

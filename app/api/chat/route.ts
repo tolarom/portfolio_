@@ -62,12 +62,16 @@ export async function POST(req: Request) {
               {
                 text: [
                   "You are the portfolio assistant for Tola Rom.",
+                  "Your name is Nikki.",
                   "Answer visitor questions using only the portfolio facts below.",
                   "If a question is outside the facts, say you do not know and suggest contacting Tola directly.",
                   "Keep responses concise, friendly, and practical.",
                   "When an answer contains multiple points, return each point on its own line prefixed with '- '.",
+                  "If you begin a list or bullet answer, finish all bullets completely and do not end on a partial thought.",
                   "Do not use Markdown emphasis. Keep answers concise and factual.",
                   "Avoid long paragraphs; prefer short bullet lines for lists or multiple points.",
+                  "Answer with jokey and friendly tone, but do not make up facts. If you don't know, say you don't know.",
+                  "when asked the same question multiple times, jokingly remind the user. Stop answering if they keep asking the same question, but keep your cool.",
                   buildPortfolioContext(),
                 ].join("\n"),
               },
@@ -76,7 +80,7 @@ export async function POST(req: Request) {
           contents: conversation,
           generationConfig: {
             temperature: 0.4,
-            maxOutputTokens: 500,
+            maxOutputTokens: 5000,
           },
         }),
       },
@@ -122,15 +126,6 @@ function buildLocalReply(question: string) {
     return null;
   }
 
-  // Birthday quick-reply
-  if (
-    /\b(my birthday|its my birthday|it's my birthday|today is my birthday|happy birthday to me|i'm celebrating my birthday|i am celebrating my birthday)\b/i.test(
-      normalizedQuestion,
-    )
-  ) {
-    const who = portfolioFacts?.name ? `, ${portfolioFacts.name}` : "";
-    return `Happy birthday${who}! 🎉 I hope you have a wonderful day.`;
-  }
 
   if (
     /^(hi|hello|hey|yo|good morning|good afternoon|good evening)[!.?\s]*$/i.test(
@@ -140,23 +135,6 @@ function buildLocalReply(question: string) {
     return "Hello. What would you like to know about Tola?";
   }
 
-    // Confirmatory questions like "so he can play football" or "can he play football?"
-    const confirmMatch = normalizedQuestion.match(/(?:so\s+he\s+can|can\s+he|does\s+he|so\s+he)\s+(?:play\s+)?([a-z\s]+)/i);
-    if (confirmMatch) {
-      const item = confirmMatch[1].toLowerCase().trim();
-      const hobbies = (portfolioFacts.hobbies ?? []).map((h) => h.toLowerCase());
-      const found = hobbies.find((h) => h.includes(item) || item.includes(h));
-      if (found) {
-        const prettyFound = portfolioFacts.hobbies?.find(h => h.toLowerCase() === found) ?? found;
-        const others = (portfolioFacts.hobbies ?? []).filter(h => h.toLowerCase() !== found);
-        const extras = others.slice(0, 3);
-        if (extras.length > 0) {
-          return `Yes — Tola ${found.includes('football') ? 'plays football' : `enjoys ${prettyFound}`}. He also likes ${extras.join(', ')}.`;
-        }
-        return `Yes — Tola ${found.includes('football') ? 'plays football' : `enjoys ${prettyFound}`}.`;
-      }
-      return `I don't see that listed among Tola's hobbies.`;
-    }
 
   if (
     /^(how are you|how's it going|whats up|what's up|sup)[!.?\s]*$/i.test(
@@ -180,6 +158,24 @@ function buildLocalReply(question: string) {
     )
   ) {
     return "I’m Tola’s portfolio assistant. I can answer questions about his background, skills, projects, and contact details.";
+  }
+
+  if (/\b(contact|email|phone|reach|linkedin|github)\b/i.test(normalizedQuestion)) {
+    const parts = [
+      `Email: ${portfolioFacts.contact.email}`,
+      portfolioFacts.contact.phone ? `Phone: ${portfolioFacts.contact.phone}` : null,
+      portfolioFacts.contact.location ? `Location: ${portfolioFacts.contact.location}` : null,
+      portfolioFacts.contact.github ? `GitHub: ${portfolioFacts.contact.github}` : null,
+      portfolioFacts.contact.linkedin ? `LinkedIn: ${portfolioFacts.contact.linkedin}` : null,
+    ].filter(Boolean) as string[];
+    return `Contact details:\n- ${parts.join("\n- ")}`;
+  }
+
+  if (/\b(skill|skills|stack|can he do|what can he do|full skills|all skills)\b/i.test(normalizedQuestion)) {
+    const skillLines = portfolioFacts.skills.map(
+      (skill) => `- ${skill.category}: ${skill.items.join(", ")}`,
+    );
+    return `Here is Tola's full skills list:\n${skillLines.join("\n")}`;
   }
 
   return null;
@@ -206,15 +202,6 @@ function buildFallbackAnswer(question: string) {
     return "Hello. What would you like to know about Tola?";
   }
 
-  // Birthday fallback reply
-  if (
-    /\b(my birthday|its my birthday|it's my birthday|today is my birthday|happy birthday to me|i'm celebrating my birthday|i am celebrating my birthday)\b/i.test(
-      normalizedQuestion,
-    )
-  ) {
-    const who = portfolioFacts?.name ? `, ${portfolioFacts.name}` : "";
-    return `Happy birthday${who}! 🎉 The assistant is using local data right now, but I hope you have a great day.`;
-  }
 
   if (
     /^(how are you|how's it going|whats up|what's up|sup)[!.?\s]*$/i.test(
@@ -242,7 +229,12 @@ function buildFallbackAnswer(question: string) {
 
   if (/skill|stack|know|can he do|expert/i.test(normalizedQuestion)) {
     const header = "Tola's main skills include:";
-    const body = formatMaybeBulleted(portfolioFacts.skills, header);
+    const body = formatMaybeBulleted(
+      portfolioFacts.skills.flatMap((skill) =>
+        skill.items.map((item) => `${skill.category}: ${item}`),
+      ),
+      header,
+    );
     return `${body}\n\nIf you want the full list, ask about skills again or contact him directly.`;
   }
 
@@ -289,14 +281,6 @@ function buildFallbackAnswer(question: string) {
       parts.filter(Boolean) as string[],
       "Contact details:",
     );
-  }
-
-  if (/facebook|fb/i.test(normalizedQuestion)) {
-    const fb = portfolioFacts.contact.socialLinks?.find((s) =>
-      /facebook/i.test(s.label),
-    )?.href;
-    if (fb) return formatMaybeBulleted([fb], "Tola's Facebook:");
-    return `Facebook link is not listed for Tola.`;
   }
 
   if (/hobby|hobbies|interest|interests/i.test(normalizedQuestion)) {

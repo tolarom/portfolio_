@@ -73,7 +73,7 @@ export default function PortfolioChatbot() {
 
   return (
     <div className="w-full h-[72vh] sm:h-[80vh] overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-xl dark:border-zinc-700/60 dark:bg-zinc-950/80">
-      <div className="flex flex-col h-full bg-zinc-50/70 dark:bg-zinc-900/40">
+      <div className="flex flex-col h-full bg-white dark:bg-zinc-900/40">
           <div className="flex-1 space-y-5 overflow-y-auto px-6 py-6 sm:px-8 sm:py-8">
             {messages.map((message, index) => (
               <div
@@ -87,11 +87,11 @@ export default function PortfolioChatbot() {
                 <div
                   className={
                     message.role === "assistant"
-                      ? "max-w-[90%] rounded-2xl rounded-tl-sm px-5 py-4 text-lg leading-7 text-zinc-700 shadow-sm dark:text-zinc-200 chat-message-assistant"
+                      ? "max-w-[90%] rounded-2xl rounded-tl-sm px-5 py-4 text-lg leading-7 text-zinc-900 shadow-sm dark:text-zinc-100 bg-white chat-message-assistant"
                       : "max-w-[90%] rounded-2xl rounded-tr-sm px-5 py-4 text-lg leading-7 text-white shadow-sm chat-message-user"
                   }
                 >
-                  <div className="whitespace-pre-wrap">
+                  <div className="whitespace-pre-wrap text-inherit">
                     {renderMessageContent(message.content)}
                   </div>
                 </div>
