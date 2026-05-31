@@ -34,6 +34,7 @@ type PortfolioData = {
     tags: string[];
     category?: string;
     link: string;
+    images?: string[];
   }>;
   contact: {
     email: string;
