@@ -227,16 +227,6 @@ function buildFallbackAnswer(question: string) {
     return "I’m Tola’s portfolio assistant. I can answer questions about his background, skills, projects, and contact details.";
   }
 
-  if (/skill|stack|know|can he do|expert/i.test(normalizedQuestion)) {
-    const header = "Tola's main skills include:";
-    const body = formatMaybeBulleted(
-      portfolioFacts.skills.flatMap((skill) =>
-        skill.items.map((item) => `${skill.category}: ${item}`),
-      ),
-      header,
-    );
-    return `${body}\n\nIf you want the full list, ask about skills again or contact him directly.`;
-  }
 
   if (/project|work|built|portfolio/i.test(normalizedQuestion)) {
     const projectLines = portfolioFacts.projects.map(
