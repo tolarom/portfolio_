@@ -34,13 +34,26 @@
       "category": "Operating Systems",
       "items": [
         "Windows 10/11",
-        "Linux Ubuntu Server",
-        "Windows Server (Basic)"
+        "Linux Ubuntu"
       ]
     },
     {
       "category": "Networking",
       "items": ["TCP/IP", "SSH", "DNS/DHCP", "Firewall Configuration", "VLANs"]
+    },
+    {
+      "category": "Virtualization",
+      "items": ["VirtualBox", "VMware"]
+    },
+    {
+      "category": "Databases & Programming",
+      "items": [
+        "PostgreSQL",
+        "MySQL",
+        "Bash Scripting",
+        "Java / Spring Boot (Basics)",
+        "Python (Basics)"
+      ]
     },
     {
       "category": "DevOps & Infrastructure",
@@ -55,29 +68,16 @@
       ]
     },
     {
-      "category": "Databases & Programming",
-      "items": [
-        "PostgreSQL",
-        "MySQL",
-        "Bash Scripting",
-        "Java / Spring Boot (Basics)",
-        "Python (Basics)"
-      ]
-    },
-    {
-      "category": "Web Deployment",
+      "category": "Web/app Devolopment",
       "items": [
         "HTML5",
         "CSS3",
         "JavaScript",
-        "VueJs (Basics)",
-        "Responsive Design",
-        "REST API Integration"
+        "VueJs",
+        "ReactJs",
+        "REST API Integration",
+        "Flutter"
       ]
-    },
-    {
-      "category": "Virtualization",
-      "items": ["VirtualBox", "VMware"]
     }
   ],
   "projects": [
@@ -153,7 +153,8 @@
     "System Administration",
     "Infrastructure Support",
     "Junior DevOps",
-    "Entry-level IT roles"
+    "Entry-level IT roles",
+    "Web/App Deployment"
   ],
   "interests": [
     "networking",
