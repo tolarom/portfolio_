@@ -179,17 +179,21 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Photo */}
-          <div className="relative mx-auto h-64 w-64 shrink-0 sm:h-80 sm:w-80 lg:mx-0 lg:h-96 lg:w-96">
-            <Image
-              src="/profile.gif" // Change to .png or .gif as needed
-              alt="Tola Rom"
-              fill
-              className="object-contain"
-              priority
-              unoptimized={true} // Important for animated GIFs to work in Next.js
-            />
-          </div>
+          {/* Profile Photo */}
+          <figure className="relative mx-auto w-64 shrink-0 sm:w-80 lg:mx-0 lg:w-96">
+            <div className="overflow-hidden rounded-2xl border border-zinc-100 bg-white p-3 shadow-sm transition hover:shadow-md dark:border-zinc-700/40 dark:bg-zinc-900/40 sm:p-4">
+              <div className="relative aspect-square overflow-hidden rounded-xl bg-zinc-100 ring-1 ring-inset ring-zinc-900/5 dark:bg-zinc-800 dark:ring-white/10">
+                <Image
+                  src="/profile.jpg"
+                  alt="Tola Rom"
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
+                />
+              </div>
+            </div>
+          </figure>
         </section>
 
         {/* Assistant section removed per request */}
